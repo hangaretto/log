@@ -1,0 +1,10 @@
+{
+    "name": "magnetar/log",
+    "autoload": {
+        "psr-4": {
+            "Magnetar\\Log\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
