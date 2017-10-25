@@ -17,13 +17,16 @@ class LogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if(config('magnetar.log.controllers.enabled') == true)
+            include __DIR__.'/routes.php';
+
         $this->publishes([
             __DIR__.'/config/log.php' => config_path('magnetar/log.php')
         ], 'config');
 
-//        $this->publishes([
-//            __DIR__ . '/migrations' => database_path('migrations')
-//        ], 'migrations');
+        $this->publishes([
+            __DIR__ . '/migrations' => database_path('migrations')
+        ], 'migrations');
     }
 
     /**

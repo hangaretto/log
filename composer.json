@@ -5,6 +5,9 @@
             "Magnetar\\Log\\": "src"
         }
     },
+    "require": {
+        "magnetar/mailing": "dev-master"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
