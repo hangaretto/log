@@ -6,7 +6,7 @@
         }
     },
     "require": {
-        "magnetar/mailing": "dev-master"
+        "magnetar/mailing": "v1.0.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
