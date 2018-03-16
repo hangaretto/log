@@ -2,6 +2,7 @@
 
 namespace Magnetar\Log\Services;
 
+use Magnetar\Log\Events\MagnetarLogEvent;
 use Magnetar\Log\Models\Log;
 use Magnetar\Mailing\Jobs\MailingJob;
 use Mail;
@@ -36,22 +37,22 @@ class LogServices {
         $level = config('magnetar.log.levels.'.$reference['level']);
 
         foreach ($level as $item) {
-
             switch ($item) {
                 case 'admin_db':
                 case 'user_db':
                     if($item == 'user_db' && !isset($data['user_id']))
-                        throw new \Exception('log.validation.user_id');
+                        continue;
                     $log = new Log();
                     $log->text = $template;
                     $log->code = $code;
                     $log->level = $reference['level'];
                     $log->data = json_encode($data);
                     $log->save();
+                    event(new MagnetarLogEvent($template, $code, $reference['level'], $data['user_id']));
                     break;
                 case 'user_email':
                     if(!isset($data['email']))
-                        throw new \Exception('log.validation.email');
+                        continue;
                     $email_data['to'] = $data['email'];
                     $email_data['subject'] = 'Email log.';
                     $email_data['html'] = '<p>'.$template.'</p>';
@@ -60,7 +61,7 @@ class LogServices {
                     break;
                 case 'user_sms':
                     if(!isset($data['phone']))
-                        throw new \Exception('log.validation.phone');
+                        continue;
                     $sms_data['phone'] = $data['phone'];
                     $sms_data['text'] = $template;
                     $sms_data['driver'] = 'iq';
@@ -83,10 +84,7 @@ class LogServices {
                     }
                     break;
             }
-
         }
-
         return true;
     }
-
 }
