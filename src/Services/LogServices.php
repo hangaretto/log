@@ -54,7 +54,7 @@ class LogServices {
                     if(!isset($data['email']))
                         continue;
                     $email_data['to'] = $data['email'];
-                    $email_data['subject'] = 'Email log.';
+                    $email_data['subject'] = config('magnetar.log.email_subject');
                     $email_data['html'] = '<p>'.$template.'</p>';
 
                     dispatch(new MailingJob('email', $email_data));
@@ -71,7 +71,7 @@ class LogServices {
                 default:
                     if(substr_count($item, '@') > 0) {
                         $email_data['to'] = $item;
-                        $email_data['subject'] = 'Email log.';
+                        $email_data['subject'] = config('magnetar.log.email_subject');
                         $email_data['html'] = '<p>'.$template.'</p>';
 
                         dispatch(new MailingJob('email', $email_data));
