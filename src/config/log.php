@@ -8,6 +8,7 @@ return [
     'controllers' => [
         'enabled' => true
     ],
+    'email_subject' => 'Email log.',
     'levels' => [
         // Тип логирования - admin_db, user_db, user_email, user_sms, номер телефона или email адрес.
         // Для user_db обязательный параметр user_id, для user_email - email, user_sms - phone.
